@@ -2,8 +2,6 @@
 
 In your node or other definitions you can use these variables
 
-* dhcpd_domain_name - String value that is domain name for DHCP DNS
-* dhcpd_dns_servers - String that is DNS server IPs
 * dhcpd_authoritative - true/false if DHCPD server is authoritative
 * dhcpd_ddns_update - String, values can be ad-hoc, interim or none
 * dhcpd_opts - Array of strings
@@ -19,8 +17,8 @@ Here is an example of defining a subnet
         range_start => '10.1.0.50',
         range_end   => '10.1.0.254',
         router      => '10.1.0.1',
-        domain_name => 'tamu.edu',
-        dns_servers => "165.91.21.50, 128.194.103.68",
+        domain_name => 'domain.com',
+        dns_servers => "10.1.0.254, 10.1.0.253",
         pxe_only    => true,
         pxe_opts    => 'filename "pxelinux.0";',
     }
@@ -28,8 +26,6 @@ Here is an example of defining a subnet
 = Example =
 
 node 'fog_server' {
-    $dhcpd_domain_name = "domain.com"
-    $dhcpd_dns_servers = "10.1.0.254, 10.1.0.253"
     $dhcpd_authoritative = true
     $dhcpd_ddns_update = "interim"
     $dhcpd_opts = [ 'use-host-decl-names on', 'ignore client-updates;' ]
