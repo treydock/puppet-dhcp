@@ -1,5 +1,4 @@
 define dhcp::subnet (
-	$name=false,
   	$netmask=false,
 	$range_start=false,
 	$range_end=false,
