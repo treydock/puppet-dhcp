@@ -1,0 +1,29 @@
+# File managed by puppet
+
+subnet <%= name %> netmask <%= netmask %> {
+pool {
+<% if pxe_only == true -%>
+allow members of "PXEClients";
+<% end -%>
+option subnet-mask			<%= netmask %>;
+range dynamic-bootp 			<%= range_start %> <%= range_end %>;
+default-lease-time			21600;
+max-lease-time				43200;
+option routers				<%= router %>; 
+
+<% if domain_name -%>	
+option domain-name			"<%= domain_name %>"; 
+<% else -%>
+option domain-name			"<%= domain %>"; 
+<% end -%>
+<% if dns_servers -%>	
+option domain-name-servers		<%= dns_servers %>; 
+<% end -%>
+
+<% if pxe_opts -%>
+next-server <%= router %>;
+<%= pxe_opts %>
+<% end -%>
+}
+}
+

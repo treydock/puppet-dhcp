@@ -1,0 +1,42 @@
+# File managed by puppet
+
+# The ddns-updates-style parameter controls whether or not the server will
+# attempt to do a DNS update when a lease is confirmed. We default to the
+# behavior of the version 2 packages ('none', since DHCP v2 didn't
+# have support for DDNS.)
+<% if has_variable?('dhcpd_ddns_update') -%>
+ddns-update-style <%=dhcpd_ddns_update%>;
+<% else -%>
+ddns-update-style none;
+<% end -%>
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+<% if has_variable?('dhcpd_authoritative') -%>
+authoritative;
+<% else -%>
+#authoritative;
+<% end -%>
+
+<% if dhcpd_opts and not dhcpd_opts.empty? -%>
+<%= dhcpd_opts.collect! {|i| "#{i}" }.join(";\n") %>
+<% end -%>
+
+#option domain-name              "<%= dhcpd_domain_name %>";
+#option domain-name-servers      <%= dhcpd_dns_servers %>; 
+
+# This restricts dhcp leases to PXE requests only
+<% if dhcpd_pxe_only == true -%>
+class "PXEClients" {
+    match if substring (option vendor-class-identifier, 0, 3)="PXE";
+	allow booting;
+	allow bootp;
+}
+
+class "IgnoreClients" {
+	match if not (substring (option vendor-class-identifier, 0, 3)="PXE");
+	ignore declines;
+}
+<% end -%>
+
+include "/etc/dhcp/subnets/10.1.0.0.conf";
