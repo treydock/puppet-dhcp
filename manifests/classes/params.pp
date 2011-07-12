@@ -7,11 +7,8 @@ Set variables for names and paths
 */
 class dhcp::params {
 	
-	case $operatingsystem {
-    	CentOS: {
-    		$dhcp_config_dir = $operatingsystemrelease? {
-        		5.6 => "/etc/dhcp",
-      		}
-		}
+    $dhcp_config_dir = $operatingsystem ? {
+		'CentOS'	=> "/etc/dhcp",
+		default		=> "/etc/dhcp",
 	}
 }

@@ -11,6 +11,7 @@ define dhcp::subnet (
 
 	include dhcp::params
 
+# TODO: use concatfilepart to add include line to dhcpd.conf rather than statically set path
 #	common::concatfilepart {"dhcp.${name}":
 #    	file => "${dhcp::params::dhcp_config_dir}/dhcpd.conf",
 #    	ensure => $ensure,
@@ -18,7 +19,7 @@ define dhcp::subnet (
 #  	}
 
 #	file {"${dhcp::params::dhcp_config_dir}/subnets/${name}.conf":
-	file {"${dhcp::params::dhcp_config_dir}/subnets/10.1.0.0.conf":
+	file {"${dhcp::params::dhcp_config_dir}/subnets/local.conf":
     	ensure 	=> present,
     	owner  	=> 'root',
     	group  	=> 'root',

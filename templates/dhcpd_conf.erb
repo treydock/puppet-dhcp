@@ -22,9 +22,6 @@ authoritative;
 <%= dhcpd_opts.collect! {|i| "#{i}" }.join(";\n") %>
 <% end -%>
 
-#option domain-name              "<%= dhcpd_domain_name %>";
-#option domain-name-servers      <%= dhcpd_dns_servers %>; 
-
 # This restricts dhcp leases to PXE requests only
 <% if dhcpd_pxe_only == true -%>
 class "PXEClients" {
@@ -39,4 +36,4 @@ class "IgnoreClients" {
 }
 <% end -%>
 
-include "/etc/dhcp/subnets/10.1.0.0.conf";
+include "/etc/dhcp/subnets/local.conf";
