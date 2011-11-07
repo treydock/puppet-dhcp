@@ -28,6 +28,8 @@ class dhcp::hosts {
 	}
 
 	if $dhcp_hosts {
+		# NOTE: You can use string2hash to send the dhcp_hosts parameter as a json formatted string
+		# See https://github.com/treydock/puppet-string2hash
 		#$hosts = string2hash($dhcp_hosts)
 
 		create_resources('dhcp::host', $dhcp_hosts)
