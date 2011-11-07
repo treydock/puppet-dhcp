@@ -11,4 +11,6 @@ class dhcp::params {
 		'CentOS'	=> "/etc/dhcp",
 		default		=> "/etc/dhcp",
 	}
+	$dhcp_hosts_config_dir		= "${dhcp_config_dir}/hosts"
+	$dhcp_hosts_conf			= "${dhcp_config_dir}/hosts.conf"
 }

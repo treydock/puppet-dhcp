@@ -24,6 +24,9 @@ option domain-name-servers		<%= dns_servers %>;
 next-server <%= router %>;
 <%= pxe_opts %>
 <% end -%>
+
+include "/etc/dhcp/hosts.conf";
+
 }
 }
 

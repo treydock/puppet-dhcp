@@ -1,5 +1,6 @@
 class dhcp::server {
 	include dhcp::params
+	include dhcp::hosts
 
   	package {"dhcp":
     	ensure => present,
