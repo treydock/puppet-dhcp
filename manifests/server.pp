@@ -13,9 +13,9 @@ class dhcp::server {
   	}
 	file {"${dhcp::params::dhcp_config_dir}":
 		ensure	=> directory,
-		source	=> 'puppet:///dhcp/empty',
-		recurse	=> true,
-		purge	=> true,
+		#source	=> 'puppet:///modules/dhcp/empty',
+		#recurse	=> true,
+		#purge	=> true,
 		owner	=> 'root',
 		group	=> 'root',
 		mode	=> '755',
@@ -25,7 +25,7 @@ class dhcp::server {
 	
 	file {"${dhcp::params::dhcp_config_dir}/subnets":
 		ensure	=> directory,
-		source	=> 'puppet:///dhcp/empty',
+		#source	=> 'puppet:///modules/dhcp/empty',
 		recurse	=> true,
 		purge	=> true,
 		owner	=> 'root',
