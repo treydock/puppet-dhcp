@@ -18,12 +18,12 @@ authoritative;
 #authoritative;
 <% end -%>
 
-<% if dhcpd_opts and not dhcpd_opts.empty? -%>
+<% if has_variable?('dhcpd_opts') and not dhcpd_opts.empty? -%>
 <%= dhcpd_opts.collect! {|i| "#{i}" }.join(";\n") %>
 <% end -%>
 
 # This restricts dhcp leases to PXE requests only
-<% if dhcpd_pxe_only == true -%>
+<% if has_variable?('dhcpd_pxe_only') and dhcpd_pxe_only == true -%>
 class "PXEClients" {
     match if substring (option vendor-class-identifier, 0, 3)="PXE";
 	allow booting;

@@ -42,7 +42,7 @@ class dhcp::server {
 #    	notify  => Service["dhcpd"],
 #  	}
 
-	file {"/etc/dhcpd.conf":
+	file {"${dhcp::params::dhcp_config_dir}/dhcpd.conf":
     	content => template("dhcp/dhcpd_conf.erb"),
     	ensure  => present,
     	require => Package["dhcp"],

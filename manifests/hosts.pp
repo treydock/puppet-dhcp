@@ -1,5 +1,6 @@
 class dhcp::hosts {
 	include dhcp::params
+	include concat::setup
 
 	$dhcp_hosts_config_dir	= "${dhcp::params::dhcp_hosts_config_dir}"
 	$dhcp_hosts_conf			= "${dhcp::params::dhcp_hosts_conf}"
