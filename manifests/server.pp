@@ -34,19 +34,17 @@ class dhcp::server {
 		notify 	=> Service['dhcpd'],
 		require	=> File["${dhcp::params::dhcp_config_dir}"],
 	}
-# TODO: use concatfilepart to add include line to dhcpd.conf rather than statically set path
-#	common::concatfilepart {"00.dhcp.server.base":
-#    	file    => "${dhcp::params::dhcp_config_dir}/dhcpd.conf",
-#    	ensure  => present,
-#    	require => Package["dhcp"],
-#    	notify  => Service["dhcpd"],
-#  	}
+	
+	concat {"${dhcp::params::dhcp_config_dir}/dhcpd.conf":
+	    	require => Package["dhcp"],
+	    	notify  => Service["dhcpd"],
+	}
+		
 
-	file {"${dhcp::params::dhcp_config_dir}/dhcpd.conf":
-    	content => template("dhcp/dhcpd_conf.erb"),
-    	ensure  => present,
-    	require => Package["dhcp"],
-    	notify  => Service["dhcpd"],
+	concat::fragment {"dhcpd.conf.base":
+		target => "${dhcp::params::dhcp_config_dir}/dhcpd.conf",
+		order => 10,
+	    	content => template("dhcp/dhcpd_conf.erb"),
   	}
 
 }
