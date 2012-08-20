@@ -21,8 +21,8 @@ option domain-name-servers		<%= dns_servers %>;
 <% end -%>
 
 <% if pxe_opts -%>
-<% unless pxe_next_server then pxe_next_server = router end -%>
-next-server <%= pxe_next_server %>;
+<% unless pxe_next_server then next_server = router else next_server = pxe_next_server end -%>
+next-server <%= next_server %>;
 <%= pxe_opts %>
 <% end -%>
 
