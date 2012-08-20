@@ -22,6 +22,7 @@ Here is an example of defining a subnet
         dns_servers => "10.1.0.254, 10.1.0.253",
         pxe_only    => true,
         pxe_opts    => 'filename "pxelinux.0";',
+        pxe_next_server    => '10.1.0.4',
     }
 ```
 
@@ -65,12 +66,23 @@ node 'fog_server' {
         dns_servers => "10.1.0.254, 10.1.0.253",
         pxe_only    => true,
         pxe_opts    => 'filename "pxelinux.0";',
+        pxe_next_server    => '10.1.0.4',;
+
+     		"10.1.1.0":
+        netmask     => '255.255.255.0',
+        range_start => '10.1.1.50',
+        range_end   => '10.1.1.254',
+        router      => '10.1.1.1',
+        domain_name => 'domain.com',
+        dns_servers => "10.1.0.254, 10.1.0.253",
+        pxe_only    => true,
+        pxe_opts    => 'filename "pxelinux.0";',
+        pxe_next_server    => '10.1.0.4',;
     }
 }
 ```
 
 For complete list of available options to use in dhcpd.conf see http://linux.die.net/man/5/dhcpd.conf
 
-# To-Do #
 
-# Make use of community modules, ie concatfile, to have subnet definition add a line to dhcpd.conf
+Requires: https://github.com/ripienaar/puppet-concat
